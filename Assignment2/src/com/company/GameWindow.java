@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Trà Đá on 4/24/2016.
@@ -17,6 +18,8 @@ public class GameWindow extends Frame implements Runnable{
     Plane plane1;
     Plane plane2;
     PlaneEnemy plane3;
+    ArrayList<PlaneEnemy> EnemyList = new ArrayList<PlaneEnemy>();
+
 
 
     Thread thread;
@@ -35,7 +38,13 @@ public class GameWindow extends Frame implements Runnable{
             Image bulletImage = ImageIO.read(new File("resources/bullet.png"));
             plane1 = new Plane(plane1Image, 100,500);
             plane2 = new Plane(plane2Image, 200, 500);
-            plane3 = new PlaneEnemy(plane3Image, 100, 10);
+            int toado = 0;
+            for (int i =1; i<=5; i++){
+                plane3 = new PlaneEnemy(plane3Image, toado, 10);
+                EnemyList.add(plane3);
+                toado +=70;
+            }
+            System.out.println(EnemyList.size());
 
         }catch(IOException e){
             e.printStackTrace();
@@ -106,6 +115,7 @@ public class GameWindow extends Frame implements Runnable{
                     case KeyEvent.VK_SPACE:
                         plane1.shot();
                         break;
+
                 }
 
                 switch(e.getKeyCode()){
@@ -198,7 +208,10 @@ public class GameWindow extends Frame implements Runnable{
         backBufferGraphics.drawImage(backgroundImage, 0, 0, null);
         plane1.paint(backBufferGraphics);
         plane2.paint(backBufferGraphics);
-        plane3.paint(backBufferGraphics);
+        for(int i =0; i<5; i++){
+            PlaneEnemy b = EnemyList.get(i);
+            b.paint(backBufferGraphics);
+        }
 
         g.drawImage(backBufferImage, 0, 0, null);
     }
@@ -226,7 +239,12 @@ public class GameWindow extends Frame implements Runnable{
                 }*/
                 plane1.run();
                 plane2.run();
-                plane3.run();
+                for(int i =0; i<5; i++){
+                    PlaneEnemy b = EnemyList.get(i);
+                    b.run();
+                }
+
+
 
                 repaint();
                 Thread.sleep(17);
