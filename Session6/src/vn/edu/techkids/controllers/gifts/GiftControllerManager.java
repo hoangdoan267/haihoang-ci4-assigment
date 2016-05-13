@@ -28,16 +28,8 @@ public class GiftControllerManager extends ControllerManager {
             count = 0;
             times++;
             if(times % 2 == 0){
-                Gift gift =new Gift(400, 400, 30, 30);
-                ImageDrawer bomDrawer = new ImageDrawer("resources/gift_bomb.png");
-
-                GiftController giftController = new GiftController(gift, bomDrawer);
-                this.singleControllerVector.add(giftController);
-            }else{
-                Gift gift =new Gift(400, 500, 30, 30);
-                ImageDrawer bulletDrawer = new ImageDrawer("resources/bullet.png");
-                GiftBulletController giftBulletController = new GiftBulletController(gift, bulletDrawer);
-                this.singleControllerVector.add(giftBulletController);
+                GiftController giftController = GiftController.create();
+                add(giftController);
             }
             count = 0;
 
@@ -53,4 +45,6 @@ public class GiftControllerManager extends ControllerManager {
         }
         return inst;
     }
+
+
 }

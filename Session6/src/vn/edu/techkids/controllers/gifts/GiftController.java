@@ -44,4 +44,10 @@ public class GiftController extends SingleController implements Colliable{
         }
     }
 
+    public static GiftController create(){
+        Gift gift =new Gift(400, 400, 30, 30);
+        ImageDrawer bomDrawer = new ImageDrawer("resources/gift_bomb.png");
+        return new GiftController(gift, bomDrawer);
+    }
+
 }
